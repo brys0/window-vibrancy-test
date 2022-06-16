@@ -58,16 +58,7 @@ pub fn clear_blur(hwnd: HWND) -> Result<(), Error> {
 }
 
 pub fn apply_acrylic(hwnd: HWND, color: Option<Color>) -> Result<(), Error> {
-  if is_win11_dwmsbt() {
-    unsafe {
-      DwmSetWindowAttribute(
-        hwnd,
-        DWMWA_USE_IMMERSIVE_DARK_MODE,
-        &DWM_SYSTEMBACKDROP_TYPE::DWMSBT_TRANSIENTWINDOW as *const _ as _,
-        4,
-      );
-    }
-  } else if is_win10_swca() || is_win11() {
+ if is_win10_swca() || is_win11() {
     unsafe {
       SetWindowCompositionAttribute(hwnd, ACCENT_STATE::ACCENT_ENABLE_ACRYLICBLURBEHIND, color);
     }
